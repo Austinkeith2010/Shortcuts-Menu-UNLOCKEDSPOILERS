@@ -216,7 +216,7 @@ bool ShortcutsPopup::setup() {
     if (
         // Check if collected user coins is less than 10
         // 10 user coins are needed to unlock the Vault
-        (GameStatsManager::sharedState()->getStat("12") < 10)
+        (GameStatsManager::sharedState()->getStat("12") < -1)
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -235,7 +235,7 @@ bool ShortcutsPopup::setup() {
     if (
         // Check if total diamonds is less than 50
         // 50 diamonds are needed to unlock the Vault of Secrets
-        (GameStatsManager::sharedState()->getStat("13") < 50)
+        (GameStatsManager::sharedState()->getStat("13") < -50)
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -257,7 +257,7 @@ bool ShortcutsPopup::setup() {
     }
     // Chamber of Time
     if (
-        !GameManager::sharedState()->getUGV("8")
+        false
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -311,7 +311,7 @@ bool ShortcutsPopup::setup() {
 
     // Scratch
     if (
-        !isShopUnlocked(ShopType::Secret)
+        false
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -328,7 +328,7 @@ bool ShortcutsPopup::setup() {
     }
     // Community Shop
     if (
-        !isShopUnlocked(ShopType::Community)
+        false
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -345,7 +345,7 @@ bool ShortcutsPopup::setup() {
     }
     // Mechanic
     if (
-        !isShopUnlocked(ShopType::Mechanic)
+        false
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -362,7 +362,7 @@ bool ShortcutsPopup::setup() {
     }
     // Diamond
     if (
-        !isShopUnlocked(ShopType::Diamond)
+        false
         && showSpoilersChoice != ShowSpoilers::Show
     ) {
         if (showSpoilersChoice == ShowSpoilers::Silhouette) {
@@ -412,17 +412,11 @@ bool ShortcutsPopup::setup() {
 }
 
 bool ShortcutsPopup::isShopUnlocked(ShopType type) {
-    switch (type) {
-        case ShopType::Normal: return true;
-        case ShopType::Secret: return GameManager::get()->getUGV("11");
-        case ShopType::Community: return GameManager::get()->getUGV("20");
-        case ShopType::Mechanic: return GameManager::get()->getUGV("35");
-        case ShopType::Diamond: return GameManager::get()->getUGV("34");
-    }
+    return true;
 }
 
 bool ShortcutsPopup::isTreasureRoomUnlocked() {
-    return GameManager::get()->getUGV("5");
+    return true;
 }
 
 void ShortcutsPopup::onArrowNavigate(CCObject* sender) {
@@ -521,7 +515,7 @@ void ShortcutsPopup::onShortcutShop(CCObject* sender) {
     auto shopType = static_cast<ShopType>(sender->getTag());
 #ifndef SHORTCUTSMENU_DEBUG
     if (!isShopUnlocked(shopType)) {
-        FLAlertLayer::create("No", "Unlock it first.", "Ok")->show();
+        FLAlertLayer::create("Bug!", "You shouldn't be able to see this!", "Ok")->show();
         return;
     }
 #endif
@@ -535,7 +529,7 @@ void ShortcutsPopup::onShortcutShop(CCObject* sender) {
 void ShortcutsPopup::onShortcutTreasureRoom(CCObject*) {
 #ifndef SHORTCUTSMENU_DEBUG
     if (!isTreasureRoomUnlocked()) {
-        FLAlertLayer::create("No", "Unlock it first.", "Ok")->show();
+        FLAlertLayer::create("Bug!", "You shouldn't be able to see this!", "Ok")->show();
         return;
     }
 #endif
